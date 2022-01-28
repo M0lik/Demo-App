@@ -1,0 +1,85 @@
+@font-face {
+  font-family: 'myriad';
+  src: url('myriad/MYRIADPRO-REGULAR.OTF'); /* IE9 Compat Modes */
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-family: 'myriad', Fallback, sans-serif;
+  color: #24b8d0;
+  background: linear-gradient(to right, #24b8d0, #1B8A9C);
+}
+
+.card{
+  padding: 2%;
+  height: 25%;
+  width: 90%;
+  background-color: white;
+  box-shadow: 0 1px 15px rgba(0,0,0,.04), 0 1px 6px rgba(0,0,0,.04);
+  margin-top: 10%;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  z-index: 2;
+}
+
+.browser-logo{
+  max-width: 100px;
+}
+
+.logo-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo-list li{
+  list-style: none;
+}
+
+h1{
+  font-size: 2rem;
+  margin: 2% 4%;
+  text-align: center;
+}
+
+h2{
+  font-size: 1.5rem;
+  margin: 2% 4% 6% 4%;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1000px){
+  .fixed-background{
+    height: 130%!important;
+  }
+}
+@media only screen and (max-width: 770px){
+  .browser-logo{
+    max-width: 70px;
+  }
+  h1{
+    font-size: 1.7rem;
+  }
+}
+@media only screen and (max-width: 476px){
+  .logo-list{
+    display: flex;
+    flex-direction: column;
+  }
+  .browser-logo{
+    margin-bottom: 20%;
+  }
+}
