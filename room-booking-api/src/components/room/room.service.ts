@@ -34,8 +34,8 @@ export class RoomService {
     const bookedRooms = bookings.map((e) => e.room);
     const allRooms = await this.findAll();
 
-    let availableRooms = [];
-    for (var room of allRooms) {
+    const availableRooms = [];
+    for (const room of allRooms) {
       if (bookedRooms.find((r) => r.name === room.name) === undefined) {
         availableRooms.push(room);
       }

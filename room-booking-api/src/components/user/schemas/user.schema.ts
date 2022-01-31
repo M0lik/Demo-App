@@ -1,9 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Company } from '../../company/schemas/company.schema';
-
-import { Mongoose } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { Company } from '../../company/schemas/company.schema';
 
 export type UserDocument = User & Document;
 

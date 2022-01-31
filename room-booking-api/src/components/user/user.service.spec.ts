@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from './schemas/user.schema';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -15,7 +14,7 @@ describe('UserService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-   });
+  });
   // it.each`
   //   name      | returnVal
   //   ${'john'} | ${{ userId: 1, username: 'john', password: 'changeme' }}

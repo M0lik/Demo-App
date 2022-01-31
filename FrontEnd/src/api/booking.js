@@ -1,10 +1,12 @@
 import axios from "axios";
-import { BASE_URL } from "./config";
+import { BASE_URL } from "../config/constant";
+
+const bookingApiUrl = `${BASE_URL}booking/`;
 
 export const bookingApi = {
   createBooking: async (startDate, endDate, roomId, slotId, userId) => {
     try {
-      const res = await axios.post(BASE_URL + "booking", {
+      const res = await axios.post(bookingApiUrl, {
         user: userId,
         slot: slotId,
         room: roomId,
@@ -19,7 +21,7 @@ export const bookingApi = {
   },
   getAllBookings: async () => {
     try {
-      const res = await axios.get(BASE_URL + "booking");
+      const res = await axios.get(bookingApiUrl);
       return res.data;
     } catch (err) {
       console.log("error : ", err);
@@ -28,9 +30,7 @@ export const bookingApi = {
   },
   getUserBookings: async (userId) => {
     try {
-      const res = await axios.get(
-        BASE_URL + "booking/findUserBookings/" + userId
-      );
+      const res = await axios.get(`${bookingApiUrl}findUserBookings/${userId}`);
       return res.data;
     } catch (err) {
       console.log("error : ", err);
@@ -39,10 +39,7 @@ export const bookingApi = {
   },
   deleteBookings: async (id) => {
     try {
-      const res = await axios.delete(
-        BASE_URL + "booking/"+ id
-      );
-      console.log(res.data);
+      const res = await axios.delete(`${bookingApiUrl}${id}`);
       return res.data;
     } catch (err) {
       console.log("error : ", err);

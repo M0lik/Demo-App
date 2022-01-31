@@ -20,7 +20,11 @@ export class SlotController {
 
   @Post('/findAvailableSlots')
   async findAvailableSlots(@Body() getSlots: GetSlotsDto): Promise<Slot[]> {
-    return this.slotService.findAvailableSlots(getSlots.startDate, getSlots.endDate, getSlots.companyId);
+    return this.slotService.findAvailableSlots(
+      getSlots.startDate,
+      getSlots.endDate,
+      getSlots.companyId,
+    );
   }
 
   @Delete(':id')

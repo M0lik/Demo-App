@@ -10,7 +10,9 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async create(registerDTO: CreateUserDto) {
-    const user = await this.userModel.findOne({ username: registerDTO.username });
+    const user = await this.userModel.findOne({
+      username: registerDTO.username,
+    });
     if (user) {
       throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
     }

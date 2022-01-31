@@ -9,7 +9,6 @@ import {
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { LoginDto } from './dto/login.dto';
 import { ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/schemas/user.schema';

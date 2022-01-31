@@ -4,10 +4,10 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-    constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
-    @Post()
-    async create(@Body() createRoomDto: CreateUserDto) {
-      return this.userService.create(createRoomDto);
-    }
+  @Post()
+  async create(@Body() createRoomDto: CreateUserDto) {
+    return this.userService.create(createRoomDto);
+  }
 }

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import Paper from "@mui/material/Paper";
 import NavBar from "../../components/NavBar";
 import { logOutUser } from "../../redux/auth/userSlice";
@@ -23,7 +23,7 @@ export const Page = () => {
     return {
       title: bookingData.slot.company.name + " " + bookingData.slot.name,
       start: bookingData.start,
-      end: bookingData.end
+      end: bookingData.end,
     };
   };
 
@@ -50,47 +50,43 @@ export const Page = () => {
 
   return (
     <div className="background">
-      <NavBar title={"Week Bookings"} />
+      <NavBar />
       <Paper
-        className="center flex_column"
+        className="center flex_column small_padding"
         style={{
           width: "90%",
           height: "80%",
         }}
       >
+        <div style={{display:'flex'}}>
+          <h1 style={{margin:'auto'}}>Bookings</h1>
+        </div>
         <FullCalendar
-        plugins={[timeGridPlugin]}
-        initialView="timeGridWeek"
-        expandRows={true}
+          plugins={[timeGridPlugin]}
+          initialView="timeGridWeek"
+          weekends={false}
+          slotMinTime={"08:00:00"}
+          slotMaxTime={"19:00:00"}
+          height={"620px"}
+          allDaySlot={false}
+          eventSources={[
+            {
+              events: pepsiBookings,
+              color: "#004B93",
+              textColor: "white",
+            },
+            {
+              events: cokeBookings,
+              color: "#F40009",
+              textColor: "white",
+            },
+            {
+              events: unknownBookings,
+              color: "#d3d3d3",
+              textColor: "black",
+            },
+          ]}
         />
-       {/* <FullCalendar
-        plugins={[timeGridPlugin]}
-        initialView="timeGridWeek"
-        weekends={false}
-        slotMinTime={"08:00:00"}
-        slotMaxTime={"19:00:00"}
-         height={"700px"}
-        allDaySlot={false}
-        eventSources={[
-          {
-            events: pepsiBookings,
-            color: "#004B93",
-            textColor: "white",
-          },
-          {
-            events: cokeBookings,
-            color: "#F40009",
-            textColor: "white",
-          },
-          {
-            events: unknownBookings,
-            color: "#d3d3d3",
-            textColor: "black",
-          },
-        ]}
-
-      /> */}
-
       </Paper>
     </div>
   );

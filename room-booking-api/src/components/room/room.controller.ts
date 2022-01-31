@@ -20,7 +20,10 @@ export class RoomController {
 
   @Post('/findAvailableRooms')
   async findAvailableRooms(@Body() getRoomsDto: GetRoomsDto): Promise<Room[]> {
-    return this.company.findAvailableRooms(getRoomsDto.startDate, getRoomsDto.endDate);
+    return this.company.findAvailableRooms(
+      getRoomsDto.startDate,
+      getRoomsDto.endDate,
+    );
   }
 
   @Delete(':id')

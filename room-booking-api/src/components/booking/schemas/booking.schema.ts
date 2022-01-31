@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Slot } from 'src/components/slot/schemas/slot.schema';
-import { User } from 'src/components/user/schemas/user.schema';
+import { Slot } from '../../slot/schemas/slot.schema';
+import { User } from '../../user/schemas/user.schema';
 import { Room } from '../../room/schemas/room.schema';
 
 export type BookingDocument = Booking & Document;

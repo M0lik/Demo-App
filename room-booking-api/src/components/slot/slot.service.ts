@@ -12,7 +12,7 @@ export class SlotService {
   constructor(
     @InjectModel(Slot.name) private slotModel: Model<SlotDocument>,
     private companyService: CompanyService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
   ) {}
 
   async create(createCompanyDto: CreateSlotDto): Promise<Slot> {
@@ -24,22 +24,27 @@ export class SlotService {
     return this.slotModel.find().populate('company').exec();
   }
 
-  async findAvailableSlots(startDate: Date, endDate: Date, companyId: string): Promise<Slot[]> {
+  async findAvailableSlots(
+    startDate: Date,
+    endDate: Date,
+    companyId: string,
+  ): Promise<Slot[]> {
     const bookings = await this.bookingService.findAvailabilityOnCompany(
       startDate,
       endDate,
-      companyId
+      companyId,
     );
 
-    const slots = bookings.map(e => e.slot);
+    const slots = bookings.map((e) => e.slot);
 
     const filterSlots = await this.slotModel.aggregate([
       {
         $match: {
           _id: { $nin: slots },
-          company: new Types.ObjectId(companyId)
+          company: new Types.ObjectId(companyId),
         },
-      }]);
+      },
+    ]);
 
     return filterSlots;
   }

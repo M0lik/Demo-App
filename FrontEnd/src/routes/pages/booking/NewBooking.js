@@ -15,6 +15,7 @@ import StepTwo from "../../../components/booking/StepTwo";
 import StepThree from "../../../components/booking/StepThree";
 import { bookingApi } from "../../../api/booking";
 import { useHistory } from "react-router";
+import moment from "moment";
 
 export default function NewBooking() {
   const user = useSelector(userSelector);
@@ -132,12 +133,22 @@ export default function NewBooking() {
           ) : null}
           {activeStep === 3 ? (
             <React.Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                All steps completed - you&apos;re finished
-              </Typography>
+              <div style={{ display: "flex" }}>
+                <h4 style={{ margin: "auto" }}>Validation</h4>
+              </div>
+              <div style={{ display: "flex" }}>
+                <h4 style={{ margin: "auto" }}>
+                  You are going to validate the booking:<br/>
+                  Slot: {selectedSlot.name}<br/>
+                  Room: {selectedRoom.name}<br/>
+                  Start Date : {moment(startDate).format("DD/MM/YYYY HH:mm ")}<br/>
+                  End Date : {moment(endDate).format("DD/MM/YYYY HH:mm ")}<br/>
+                </h4>
+              </div>
+
               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Button onClick={handleReset}>Reset</Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* <Button onClick={handleReset}>Reset</Button> */}
                 <Button onClick={validation}>Validation</Button>
               </Box>
             </React.Fragment>

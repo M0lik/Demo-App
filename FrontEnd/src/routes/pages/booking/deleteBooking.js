@@ -60,22 +60,25 @@ export default function DeleteBooking() {
 
   return (
     <div className="background">
-      <NavBar title={"Week Bookings"} />
+      <NavBar  />
       <Paper
         className="center flex_column small_padding"
         style={{
           width: "90%",
-          height: "60%",
+          height: "80%",
         }}
       >
+         <div style={{display:'flex', flexDirection:'column'}}>
+          <h1 style={{margin:'auto'}}>Delete Bookings</h1>
+          <h4 style={{margin:'auto'}}>Click on the booking you want to delete.</h4>
+        </div>
         <FullCalendar
           plugins={[timeGridPlugin]}
           initialView="timeGridWeek"
           weekends={false}
           slotMinTime={"08:00:00"}
           slotMaxTime={"19:00:00"}
-          expandRows={true}
-          height={"100%"}
+          height={"620px"}
           allDaySlot={false}
           eventSources={[
             {

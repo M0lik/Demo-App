@@ -14,10 +14,6 @@ export default function StepThree(props) {
 
   React.useEffect(() => {
     const asyncCall = async () => {
-      console.log(props.startDate);
-      console.log(typeof props.startDate);
-      console.log(props.endDate);
-      console.log(typeof props.endDate);
       let tmpSlots = await availabilityApi.getSlots(
         props.startDate,
         props.endDate,
@@ -35,13 +31,17 @@ export default function StepThree(props) {
     <AbstractStep
       {...props}
       handleNext={() => {
-        props.onValidation(selectedSlot);
+        const slot = slots.find(e => e._id === selectedSlot);
+        props.onValidation(slot);
         props.handleNext();
       }}
     >
-      <div>
-        <h6>Assign slot</h6>
+       <div style={{ display: "flex" }}>
+        <h4 style={{ margin: "auto" }}>Assign slot</h4>
+      </div>
+      <div style={{display:'flex'}}>
         <Select
+        style={{margin:'auto'}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedSlot}

@@ -1,12 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
-import { User, UserDocument } from '../user/schemas/user.schema';
-import { ConflictException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { User } from '../user/schemas/user.schema';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 
 @Injectable()

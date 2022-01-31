@@ -8,7 +8,7 @@ import { BookingModule } from '../booking/booking.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Room.name, schema: RoomSchema }]),
-    BookingModule
+    BookingModule,
   ],
   providers: [RoomService],
   controllers: [RoomController],

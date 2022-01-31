@@ -45,3 +45,7 @@ html {
 .small_padding {
   padding: 20px;
 }
+
+.fc-timegrid-slots > table > tbody > tr{
+  height: 10px;
+}

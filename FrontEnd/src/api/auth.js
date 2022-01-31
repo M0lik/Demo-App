@@ -1,10 +1,12 @@
 import axios from "axios";
-import {BASE_URL} from './config';
+import { BASE_URL } from "../config/constant";
+
+const authApiUrl = `${BASE_URL}auth/`;
 
 export const authApi = {
   login: async (username, password) => {
     try {
-      const res = await axios.post(BASE_URL + "auth/login", {
+      const res = await axios.post(`${authApiUrl}login`, {
         username,
         password,
       });
@@ -20,7 +22,7 @@ export const authApi = {
     };
 
     try {
-      const res = await axios.get(BASE_URL + "auth/profile", config);
+      const res = await axios.get(`${authApiUrl}profile`, config);
       return res.data;
     } catch (err) {
       console.log("error : ", err);

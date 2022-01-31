@@ -17,24 +17,31 @@ export default function StepOne(props) {
         props.handleNext();
       }}
     >
-      <div>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <h6>Start Date : </h6>
-          <DateTimePicker
-            label="Date&Time picker"
-            value={startDate}
-            onChange={(e) => setStartDate(e)}
-            renderInput={(params) => <TextField {...params} />}
-          />
-          <h6>End Date : </h6>
-          <DateTimePicker
-            label="Date&Time picker"
-            value={endDate}
-            onChange={(e) => setEndDate(e)}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
+      <div style={{ display: "flex" }}>
+        <h4 style={{ margin: "auto" }}>Select date for booking</h4>
       </div>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <div style={{display:'flex', justifyContent:'space-evenly'}}>
+          <div>
+            <h4>Start Date : </h4>
+            <DateTimePicker
+              label="Date&Time picker"
+              value={startDate}
+              onChange={(e) => setStartDate(e)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </div>
+          <div>
+            <h4>End Date : </h4>
+            <DateTimePicker
+              label="Date&Time picker"
+              value={endDate}
+              onChange={(e) => setEndDate(e)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </div>
+        </div>
+      </LocalizationProvider>
     </AbstractStep>
   );
 }

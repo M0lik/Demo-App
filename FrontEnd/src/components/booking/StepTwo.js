@@ -7,8 +7,6 @@ import AbstractStep from "./AbstractStep";
 import {availabilityApi} from '../../api/availability';
 
 export default function StepTwo(props) {
-
-console.log('props : ', props)
   const [rooms, setRooms] = React.useState([]);
   const [selectedRoom, setSelectedRoom] = React.useState(null);
 
@@ -28,13 +26,16 @@ console.log('props : ', props)
     <AbstractStep
       {...props}
       handleNext={() => {
-        props.onValidation(selectedRoom);
+        let room = rooms.find(e => e._id === selectedRoom);
+        props.onValidation(room);
         props.handleNext();
       }}
     >
-      <div>
-        <h6>Choose an available Room</h6>
-        <InputLabel id="room">Room</InputLabel>
+       <div style={{ display: "flex" }}>
+        <h4 style={{ margin: "auto" }}>Choose an available Room</h4>
+      </div>
+      <div style={{ display: "flex" }}>
+        <div style={{margin:'auto'}}>
         <Select
           labelId="room"
           id="room"
@@ -46,6 +47,7 @@ console.log('props : ', props)
             <MenuItem value={e._id}>{e.name}</MenuItem>
           ))}
         </Select>
+      </div>
       </div>
     </AbstractStep>
   );

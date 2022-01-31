@@ -16,42 +16,41 @@ export class BookingService {
     return createdBooking.save();
   }
 
-  async findAll(companyId?:string): Promise<Booking[]> {
+  async findAll(): Promise<Booking[]> {
     const tmp = await this.bookingModel
       .find()
       .populate({
-        path : 'slot',
-        populate : {
-          path : 'company'
-        }
+        path: 'slot',
+        populate: {
+          path: 'company',
+        },
       })
       .populate('room')
       .populate({
-        path : 'user',
-        populate : {
-          path : 'company'
-        }
+        path: 'user',
+        populate: {
+          path: 'company',
+        },
       })
       .exec();
     return tmp;
   }
 
-  async findUserBooking(userId:string): Promise<Booking[]> {
-
+  async findUserBooking(userId: string): Promise<Booking[]> {
     const tmp = await this.bookingModel
-      .find({user:userId})
+      .find({ user: userId })
       .populate({
-        path : 'slot',
-        populate : {
-          path : 'company'
-        }
+        path: 'slot',
+        populate: {
+          path: 'company',
+        },
       })
       .populate('room')
       .populate({
-        path : 'user',
-        populate : {
-          path : 'company'
-        }
+        path: 'user',
+        populate: {
+          path: 'company',
+        },
       })
       .exec();
 
@@ -94,7 +93,7 @@ export class BookingService {
   }
 
   async findAvailability(startDate: Date, endDate: Date): Promise<Booking[]> {
-    var searchParams = {};
+    const searchParams = {};
     searchParams['start'] = { $gte: startDate };
     searchParams['end'] = { $lte: endDate };
 

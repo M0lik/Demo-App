@@ -10,6 +10,6 @@ import { Booking, BookingSchema } from './schemas/booking.schema';
   ],
   providers: [BookingService],
   controllers: [BookingController],
-  exports: [BookingService]
+  exports: [BookingService],
 })
 export class BookingModule {}

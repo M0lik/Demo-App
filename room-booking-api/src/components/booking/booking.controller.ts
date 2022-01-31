@@ -1,17 +1,7 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Body,
-  Delete,
-  Put,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { Booking } from './schemas/booking.schema';
-import { Room } from '../room/schemas/room.schema';
-import { Slot } from '../slot/schemas/slot.schema';
 
 @Controller('booking')
 export class BookingController {
@@ -35,7 +25,7 @@ export class BookingController {
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Booking> {
-    console.log('id')
+    console.log('id');
     return this.booking.findById(id);
   }
 
