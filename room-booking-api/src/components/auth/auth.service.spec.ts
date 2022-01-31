@@ -6,21 +6,34 @@ import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { MongoMock } from '../../mock/mongoMock';
+import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { User } from '../user/schemas/user.schema';
+import { UserService } from '../user/user.service';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [
-        UserModule,
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
           signOptions: { expiresIn: '60s' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [
+        AuthService,
+        LocalStrategy,
+        JwtStrategy,
+        UserService,
+        {
+          provide: getModelToken(User.name),
+          useValue: mongoMock,
+        },
+      ],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
@@ -33,26 +46,35 @@ describe('AuthService', () => {
 
 describe('validateUser', () => {
   let service: AuthService;
+  let mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [
-        UserModule,
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
           signOptions: { expiresIn: '60s' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [
+        AuthService,
+        LocalStrategy,
+        JwtStrategy,
+        UserService,
+        {
+          provide: getModelToken(User.name),
+          useValue: mongoMock,
+        },
+      ],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
   });
 
   it('should return a user object when credentials are valid', async () => {
-   // const res = await service.validateUser('maria', 'guess');
-   // expect(res.userId).toEqual(3);
+    // const res = await service.validateUser('maria', 'guess');
+    // expect(res.userId).toEqual(3);
   });
 
   it('should return null when credentials are invalid', async () => {
@@ -63,18 +85,27 @@ describe('validateUser', () => {
 
 describe('validateLogin', () => {
   let service: AuthService;
+  let mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [
-        UserModule,
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
           signOptions: { expiresIn: '2 days' },
         }),
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [
+        AuthService,
+        LocalStrategy,
+        JwtStrategy,
+        UserService,
+        {
+          provide: getModelToken(User.name),
+          useValue: mongoMock,
+        },
+      ],
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);

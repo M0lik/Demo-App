@@ -4,11 +4,12 @@ import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { Company, CompanyDocument } from './schemas/company.schema';
 import { Model } from 'mongoose';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { MongoMock } from '../../mock/mongoMock';
 
 describe('CompanyService', () => {
   let service: CompanyService;
   let spyModel: Model<CompanyDocument>;
-  let data: any[] = [];
+  let mongoMock: MongoMock = new MongoMock();
 
   const testData: CreateCompanyDto = {
     name: 'testCompany',
@@ -18,47 +19,17 @@ describe('CompanyService', () => {
   };
 
   beforeEach(async () => {
-    const productMockRepository = {
-      find: () => {
-        return { exec: jest.fn(() => data) };
-      },
-      create: jest.fn((dataDto: CreateCompanyDto) => {
-        data.push({ ...dataDto, _id: data.length.toString() });
-      }),
-      findById: (id: string) => {
-        return {
-          exec: jest.fn(() => {
-            const tmpData = data.find((e) => e._id === id);
-            if (tmpData === undefined) return null;
-            else return tmpData;
-          }),
-        };
-      },
-      deleteOne: ({ _id }) => {
-        return {
-          exec: jest.fn(() => {
-            if (data.find((e) => e._id === _id) === undefined) {
-              return { deletedCount: 0 };
-            }
-            data = data.filter((e) => e._id !== _id);
-            return { deletedCount: 1 };
-          }),
-        };
-      },
-    };
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CompanyService,
         {
           provide: getModelToken(Company.name),
-          useValue: productMockRepository,
+          useValue: mongoMock,
         },
       ],
     }).compile();
 
     service = module.get<CompanyService>(CompanyService);
-    spyModel = module.get<Model<CompanyDocument>>(getModelToken(Company.name));
   });
 
   it('should be defined', () => {
@@ -71,7 +42,7 @@ describe('CompanyService', () => {
 
   it('should add data', async () => {
     await service.create(testData);
-    expect(data).toEqual([{ ...testData, _id: '0' }]);
+    expect(mongoMock.data).toEqual([{ ...testData, _id: '0' }]);
   });
 
   it('should find all data', async () => {
