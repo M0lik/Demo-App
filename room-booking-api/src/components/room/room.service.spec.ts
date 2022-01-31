@@ -5,9 +5,19 @@ import { MongoMock } from '../../mock/mongoMock';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { BookingService } from '../booking/booking.service';
 import { Booking } from '../booking/schemas/booking.schema';
+import { CreateRoomDto } from './dto/create-room.dto';
+import { GetRoomsDto } from './dto/get-rooms.dto';
+
+const createData: CreateRoomDto = {
+  name: 'testRoom',
+};
+const createData2: CreateRoomDto = {
+  name: 'testRoom2',
+};
 
 describe('RoomService', () => {
   let service: RoomService;
+  let bookingService: BookingService;
   let mongoMockRoom: MongoMock = new MongoMock();
   let mongoMockBooking: MongoMock = new MongoMock();
 
@@ -28,9 +38,66 @@ describe('RoomService', () => {
     }).compile();
 
     service = module.get<RoomService>(RoomService);
+    bookingService = module.get<BookingService>(BookingService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should be call the create method in the model', () => {
+    expect(service.create).toBeDefined();
+  });
+
+  it('should add data', async () => {
+    await service.create(createData);
+    expect(mongoMockRoom.data).toEqual([{ ...createData, _id: '0' }]);
+  });
+
+  it('should find all data', async () => {
+    await service.create(createData2);
+    const res = await service.findAll();
+
+    expect(res).toEqual([
+      { ...createData, _id: '0' },
+      { ...createData2, _id: '1' },
+    ]);
+  });
+
+  it('should find available rooms', async () => {
+    let book = new Booking();
+    book.room = new Room();
+    book.room.name = 'testRoom2';
+
+    jest
+      .spyOn(bookingService, 'findAvailability')
+      .mockImplementation(
+        async (startDate: Date, endDate: Date): Promise<Booking[]> => [book],
+      );
+
+    const res = await service.findAvailableRooms(new Date(), new Date());
+
+    expect(res).toEqual([{ ...createData, _id: '0' }]);
+  });
+
+  it('should delete data by id', async () => {
+    expect(await service.findAll()).toEqual([
+      { ...createData, _id: '0' },
+      { ...createData2, _id: '1' },
+    ]);
+
+    const res = await service.delete('1');
+    expect(res).toBeTruthy();
+
+    expect(await service.findAll()).toEqual([{ ...createData, _id: '0' }]);
+  });
+
+  it('should fail to delete', async () => {
+    expect(await service.findAll()).toEqual([{ ...createData, _id: '0' }]);
+
+    const res = await service.delete('3');
+    expect(res).toBeFalsy();
+
+    expect(await service.findAll()).toEqual([{ ...createData, _id: '0' }]);
   });
 });

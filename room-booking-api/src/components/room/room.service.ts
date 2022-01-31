@@ -14,8 +14,8 @@ export class RoomService {
   ) {}
 
   async create(createCompanyDto: CreateRoomDto): Promise<Room> {
-    const createdCompany = new this.roomModel(createCompanyDto);
-    return createdCompany.save();
+    const createdCompany = await this.roomModel.create(createCompanyDto);
+    return createdCompany;
   }
 
   async findAll(): Promise<Room[]> {
@@ -23,7 +23,8 @@ export class RoomService {
   }
 
   async delete(id: string) {
-    this.roomModel.deleteOne({ _id: id }).exec();
+    const result = await this.roomModel.deleteOne({ _id: id }).exec();
+    return result.deletedCount > 0;
   }
 
   async findAvailableRooms(startDate: Date, endDate: Date): Promise<Room[]> {
