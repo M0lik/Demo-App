@@ -4,20 +4,18 @@ import { Model, Types } from 'mongoose';
 
 import { Slot, SlotDocument } from './schemas/slot.schema';
 import { CreateSlotDto } from './dto/create-slot.dto';
-import { CompanyService } from '../company/company.service';
 import { BookingService } from '../booking/booking.service';
 
 @Injectable()
 export class SlotService {
   constructor(
     @InjectModel(Slot.name) private slotModel: Model<SlotDocument>,
-    private companyService: CompanyService,
     private bookingService: BookingService,
   ) {}
 
   async create(createCompanyDto: CreateSlotDto): Promise<Slot> {
-    const createdCompany = new this.slotModel(createCompanyDto);
-    return createdCompany.save();
+    const createdCompany = await this.slotModel.create(createCompanyDto);
+    return createdCompany;
   }
 
   async findAll(): Promise<Slot[]> {
@@ -54,6 +52,7 @@ export class SlotService {
   }
 
   async delete(id: string) {
-    this.slotModel.deleteOne({ _id: id }).exec();
+    const result = await this.slotModel.deleteOne({ _id: id }).exec();
+    return result.deletedCount > 0;
   }
 }

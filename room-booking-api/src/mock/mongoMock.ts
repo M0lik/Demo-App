@@ -1,14 +1,24 @@
+import { Company } from '../components/company/schemas/company.schema';
 import { CreateCompanyDto } from '../components/company/dto/create-company.dto';
 
 export class MongoMock {
   data: any[] = [];
 
   find() {
-    return { exec: jest.fn(() => this.data) };
+    return {
+      exec: jest.fn(() => this.data),
+      populate: (e) => {
+        return {
+          exec: jest.fn(() => this.data),
+        };
+      },
+    };
   }
 
-  findOne = jest.fn(({userName}) => {
-    return { exec: jest.fn(() => this.data.find((e) => e.username === userName)) };
+  findOne = jest.fn(({ userName }) => {
+    return {
+      exec: jest.fn(() => this.data.find((e) => e.username === userName)),
+    };
   });
 
   create = jest.fn((dataDto: CreateCompanyDto) => {

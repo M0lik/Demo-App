@@ -86,15 +86,3 @@ describe('CompanyService', () => {
     expect(await service.findAll()).toEqual([{ ...testData, _id: '0' }]);
   });
 });
-
-// async findAll(): Promise<Company[]> {
-//   return this.companyModel.find().exec();
-// }
-
-// async findById(id: string): Promise<Company> {
-//   return this.companyModel.findById(id).exec();
-// }
-
-// async delete(id: string) {
-//   this.companyModel.deleteOne({ _id: id }).exec();
-// }
