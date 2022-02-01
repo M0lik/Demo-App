@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { Company } from './schemas/company.schema';
@@ -28,7 +28,7 @@ export class CompanyController {
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<string> {
-    let res = await this.company.delete(id);
+    const res = await this.company.delete(id);
     if (res) return `id ${id} removed`;
     else throw new HttpException(`id ${id} not found`, HttpStatus.NOT_FOUND);
   }

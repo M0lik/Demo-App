@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { Company, CompanyDocument } from './schemas/company.schema';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class CompanyService {
@@ -24,7 +23,7 @@ export class CompanyService {
     return this.companyModel.findById(id).exec();
   }
 
-  async delete(id: string) : Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     const result = await this.companyModel.deleteOne({ _id: id }).exec();
     return result.deletedCount > 0;
   }

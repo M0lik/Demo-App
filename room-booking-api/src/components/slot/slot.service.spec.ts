@@ -2,27 +2,25 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BookingService } from '../booking/booking.service';
 import { Booking } from '../booking/schemas/booking.schema';
 import { SlotService } from './slot.service';
-import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 import { Slot } from './schemas/slot.schema';
 import { MongoMock } from '../../mock/mongoMock';
 import { CreateSlotDto } from './dto/create-slot.dto';
 
 const createData: CreateSlotDto = {
-  company:'61efce6dec6862b4eb5da3f3',
+  company: '61efce6dec6862b4eb5da3f3',
   name: 'slotName',
 };
 const createData2: CreateSlotDto = {
-  company:'61efce6dec6862b4eb5da3f3',
+  company: '61efce6dec6862b4eb5da3f3',
   name: 'slotName2',
 };
 
-
 describe('SlotService', () => {
   let service: SlotService;
-  let bookingService : BookingService;
-  let mongoMockSlot: MongoMock = new MongoMock();
-  let mongoMockBooking: MongoMock = new MongoMock();
-  
+  const mongoMockSlot: MongoMock = new MongoMock();
+  const mongoMockBooking: MongoMock = new MongoMock();
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -36,12 +34,10 @@ describe('SlotService', () => {
           provide: getModelToken(Slot.name),
           useValue: mongoMockSlot,
         },
-       
       ],
     }).compile();
 
     service = module.get<SlotService>(SlotService);
-    bookingService = module.get<BookingService>(BookingService);
   });
 
   it('should be defined', () => {
@@ -77,24 +73,19 @@ describe('SlotService', () => {
     // let book = new Booking();
     // book.slot = new Slot();
     // book.slot.name = 'slotName2';
-
     // jest
     // .spyOn(bookingService, 'findAvailabilityOnCompany')
     // .mockImplementation(
     //   async (startDate: Date, endDate: Date): Promise<Booking[]> => [book],
     // );
-
     // const res = await service.findAvailableSlots(new Date(), new Date(), '61efce6dec6862b4eb5da3f3');
-
-
     // expect(res).toBeNull();
-
-    //Stuck on 
+    //Stuck on
     // $match: {
     //   _id: { $nin: slots },
     //   company: new Types.ObjectId(companyId),
     // },
-    // mock 
+    // mock
   });
 
   it('should delete data by id', async () => {

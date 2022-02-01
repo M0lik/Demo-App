@@ -1,15 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CompanyService } from './company.service';
-import { getModelToken, MongooseModule } from '@nestjs/mongoose';
-import { Company, CompanyDocument } from './schemas/company.schema';
-import { Model } from 'mongoose';
+import { getModelToken } from '@nestjs/mongoose';
+import { Company } from './schemas/company.schema';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { MongoMock } from '../../mock/mongoMock';
 
 describe('CompanyService', () => {
   let service: CompanyService;
-  let spyModel: Model<CompanyDocument>;
-  let mongoMock: MongoMock = new MongoMock();
+  const mongoMock: MongoMock = new MongoMock();
 
   const testData: CreateCompanyDto = {
     name: 'testCompany',

@@ -1,4 +1,3 @@
-import { Company } from '../components/company/schemas/company.schema';
 import { CreateCompanyDto } from '../components/company/dto/create-company.dto';
 
 export class MongoMock {
@@ -7,7 +6,7 @@ export class MongoMock {
   find() {
     return {
       exec: jest.fn(() => this.data),
-      populate: (e) => {
+      populate: () => {
         return {
           exec: jest.fn(() => this.data),
         };
@@ -15,9 +14,9 @@ export class MongoMock {
     };
   }
 
-  findOne = jest.fn(({ userName }) => {
+  findOne = jest.fn(({ username }) => {
     return {
-      exec: jest.fn(() => this.data.find((e) => e.username === userName)),
+      exec: jest.fn(() => this.data.find((e) => e.username === username)),
     };
   });
 

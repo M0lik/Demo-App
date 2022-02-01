@@ -2,11 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { RoomService } from './room.service';
 import { Room } from './schemas/room.schema';
 import { MongoMock } from '../../mock/mongoMock';
-import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 import { BookingService } from '../booking/booking.service';
 import { Booking } from '../booking/schemas/booking.schema';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { GetRoomsDto } from './dto/get-rooms.dto';
 
 const createData: CreateRoomDto = {
   name: 'testRoom',
@@ -18,8 +17,8 @@ const createData2: CreateRoomDto = {
 describe('RoomService', () => {
   let service: RoomService;
   let bookingService: BookingService;
-  let mongoMockRoom: MongoMock = new MongoMock();
-  let mongoMockBooking: MongoMock = new MongoMock();
+  const mongoMockRoom: MongoMock = new MongoMock();
+  const mongoMockBooking: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -65,15 +64,13 @@ describe('RoomService', () => {
   });
 
   it('should find available rooms', async () => {
-    let book = new Booking();
+    const book = new Booking();
     book.room = new Room();
     book.room.name = 'testRoom2';
 
     jest
       .spyOn(bookingService, 'findAvailability')
-      .mockImplementation(
-        async (startDate: Date, endDate: Date): Promise<Booking[]> => [book],
-      );
+      .mockImplementation(async (): Promise<Booking[]> => [book]);
 
     const res = await service.findAvailableRooms(new Date(), new Date());
 

@@ -6,13 +6,14 @@ import { RoomModule } from './components/room/room.module';
 import { SlotModule } from './components/slot/slot.module';
 import { CompanyModule } from './components/company/company.module';
 import { AuthModule } from './components/auth/auth.module';
+import { MONGO_DB_URL } from './config/constant';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/RoomBooking'),
+    MongooseModule.forRoot(MONGO_DB_URL),
     BookingModule,
     RoomModule,
     SlotModule,

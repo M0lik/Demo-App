@@ -1,19 +1,18 @@
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserModule } from '../user/user.module';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { MongoMock } from '../../mock/mongoMock';
-import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 import { User } from '../user/schemas/user.schema';
 import { UserService } from '../user/user.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let mongoMock: MongoMock = new MongoMock();
+  const mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -46,7 +45,7 @@ describe('AuthService', () => {
 
 describe('validateUser', () => {
   let service: AuthService;
-  let mongoMock: MongoMock = new MongoMock();
+  const mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -85,7 +84,7 @@ describe('validateUser', () => {
 
 describe('validateLogin', () => {
   let service: AuthService;
-  let mongoMock: MongoMock = new MongoMock();
+  const mongoMock: MongoMock = new MongoMock();
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
