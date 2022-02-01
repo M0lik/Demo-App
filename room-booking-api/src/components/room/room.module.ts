@@ -12,6 +12,6 @@ import { BookingModule } from '../booking/booking.module';
   ],
   providers: [RoomService],
   controllers: [RoomController],
-  exports: [RoomService, RoomController],
+  exports: [RoomService],
 })
 export class RoomModule {}

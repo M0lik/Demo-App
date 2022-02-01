@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import MainRoute from "../routes/index";
-import { Login } from "../routes/pages/login";
-import { userSelector } from "../redux/auth/userSlice";
 import { useSelector } from "react-redux";
-import { Error404 } from "../routes/pages/error";
+
+import MainRoute from "../routes/index";
+import { Login } from "../routes/auth/login";
+import { userSelector } from "../redux/auth/userSlice";
 
 const InitialPath = ({ ...rest }) => {
   const user = useSelector(userSelector);
@@ -13,7 +13,7 @@ const InitialPath = ({ ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        user.isAuthenticated == false? (
+        user.isAuthenticated == false ? (
           <MainRoute {...props} />
         ) : (
           <Redirect
@@ -30,7 +30,6 @@ const InitialPath = ({ ...rest }) => {
 
 function App(props) {
   const { match } = props;
-  console.log("app : ", match);
   return (
     <Fragment>
       <Fragment>

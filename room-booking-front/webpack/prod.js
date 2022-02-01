@@ -6,13 +6,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const FilterWarningsPlugin = require("webpack-filter-warnings-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const UglifyEsPlugin = require("uglify-es-webpack-plugin");
 
 let pathsToClean = ["dist"];
 
 let cleanOptions = {
   root: __dirname,
-  verbose: false, // Write logs to console.
+  verbose: false,
   dry: false,
 };
 
@@ -39,11 +38,6 @@ module.exports = merge(baseConfig, {
     }),
     new FilterWarningsPlugin({
       exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
-    }),
-    new UglifyEsPlugin({
-      compress: {
-        drop_console: true,
-      },
     }),
   ],
 });

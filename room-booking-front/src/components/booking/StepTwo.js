@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-
 import AbstractStep from "./AbstractStep";
 import {availabilityApi} from '../../api/availability';
 
@@ -43,7 +41,7 @@ export default function StepTwo(props) {
           value={selectedRoom}
           onChange={(e) => setSelectedRoom(e.target.value)}
         >
-          {rooms.map((e, idx) => (
+          {rooms.map((e) => (
             <MenuItem value={e._id}>{e.name}</MenuItem>
           ))}
         </Select>

@@ -1,27 +1,19 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import Paper from "@mui/material/Paper";
-import NavBar from "../../components/NavBar";
-import { logOutUser } from "../../redux/auth/userSlice";
-import { bookingApi } from "../../api/booking";
+import NavBar from "../../../components/NavBar";
+import { bookingApi } from "../../../api/booking";
 
-export const Page = () => {
-  const dispatch = useDispatch();
+export default function DisplayBooking() {
   const [unknownBookings, setUnknownBookings] = React.useState([]);
   const [pepsiBookings, setPepsiBookings] = React.useState([]);
   const [cokeBookings, setCokeBookings] = React.useState([]);
 
-  const logout = () => {
-    dispatch(logOutUser());
-  };
-
   const clearData = (bookingData) => {
     return {
-      title: bookingData.slot.company.name + " " + bookingData.slot.name,
+      title: `${bookingData.slot.company.name} ${bookingData.slot.name} ${bookingData.room.name}`,
       start: bookingData.start,
       end: bookingData.end,
     };
@@ -58,8 +50,8 @@ export const Page = () => {
           height: "80%",
         }}
       >
-        <div style={{display:'flex'}}>
-          <h1 style={{margin:'auto'}}>Bookings</h1>
+        <div style={{ display: "flex" }}>
+          <h1 style={{ margin: "auto" }}>Bookings</h1>
         </div>
         <FullCalendar
           plugins={[timeGridPlugin]}
@@ -90,4 +82,4 @@ export const Page = () => {
       </Paper>
     </div>
   );
-};
+}

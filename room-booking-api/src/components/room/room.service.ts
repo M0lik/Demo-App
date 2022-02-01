@@ -28,7 +28,7 @@ export class RoomService {
   }
 
   async findAvailableRooms(startDate: Date, endDate: Date): Promise<Room[]> {
-    const bookings = await this.bookingService.findAvailability(
+    const bookings = await this.bookingService.findBookingsBetweenDate(
       startDate,
       endDate,
     );

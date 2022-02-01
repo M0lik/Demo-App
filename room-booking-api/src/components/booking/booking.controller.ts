@@ -9,7 +9,6 @@ export class BookingController {
 
   @Post()
   async create(@Body() createBookingDto: CreateBookingDto) {
-    console.log(createBookingDto);
     return this.booking.create(createBookingDto);
   }
 
@@ -25,7 +24,6 @@ export class BookingController {
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Booking> {
-    console.log('id');
     return this.booking.findById(id);
   }
 

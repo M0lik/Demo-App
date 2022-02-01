@@ -42,7 +42,7 @@ export default function DeleteBooking() {
   const clearData = (dataArray) =>
     dataArray.map((bookingData) => {
       return {
-        title: bookingData.slot.company.name + " " + bookingData.slot.name,
+        title: `${bookingData.slot.company.name} ${bookingData.slot.name} ${bookingData.room.name}`,
         start: bookingData.start,
         end: bookingData.end,
         id: bookingData._id,

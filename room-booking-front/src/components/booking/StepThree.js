@@ -31,17 +31,17 @@ export default function StepThree(props) {
     <AbstractStep
       {...props}
       handleNext={() => {
-        const slot = slots.find(e => e._id === selectedSlot);
+        const slot = slots.find((e) => e._id === selectedSlot);
         props.onValidation(slot);
         props.handleNext();
       }}
     >
-       <div style={{ display: "flex" }}>
+      <div style={{ display: "flex" }}>
         <h4 style={{ margin: "auto" }}>Assign slot</h4>
       </div>
-      <div style={{display:'flex'}}>
+      <div style={{ display: "flex" }}>
         <Select
-        style={{margin:'auto'}}
+          style={{ margin: "auto" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedSlot}

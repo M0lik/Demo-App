@@ -9,10 +9,9 @@ import {
 } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import { Login } from "./routes/pages/login";
+import { Login } from "./routes/auth/login";
 import ReactDOM from "react-dom";
 import configureGlobalStore from "./redux/store";
-import App from "./containers/App";
 import { userSelector } from "./redux/auth/userSlice";
 import { useSelector } from "react-redux";
 import MainRoute from "./routes";

@@ -13,7 +13,7 @@ export const authApi = {
       return res.data.access_token;
     } catch (err) {
       console.log("error : ", err);
-      return { error: "something went wrong!" };
+      return null;
     }
   },
   getUser: async (access_token) => {
@@ -26,7 +26,7 @@ export const authApi = {
       return res.data;
     } catch (err) {
       console.log("error : ", err);
-      return { error: "something went wrong!" };
+      return null;
     }
   },
 };

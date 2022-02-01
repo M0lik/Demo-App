@@ -6,17 +6,11 @@ import { authApi } from "../../api/auth";
 function* loginWithEmailPassword({ payload }) {
   const { username, password } = payload;
   const access_token = yield authApi.login(username, password);
+  if (access_token === null) return yield put(loginFailed());
   const user = yield authApi.getUser(access_token);
+  if (user === null) return yield put(loginFailed());
   const value = { access_token, ...user };
-  try {
-    if (value) {
-      yield put(loginSuccess(value));
-    } else {
-      yield put(loginFailed());
-    }
-  } catch (error) {
-    console.error("login error : ", error);
-  }
+  return yield put(loginSuccess(value));
 }
 
 export function* watchLoginUser() {

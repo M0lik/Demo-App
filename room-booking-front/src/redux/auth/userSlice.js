@@ -23,29 +23,17 @@ export const userSlice = createSlice({
         access_token: action.payload.access_token,
       };
     },
-    logOutUser(state, action) {
+    logOutUser(state) {
       state.user = UserInitialState;
-    },
-    userEmail(state, action) {
-      state.user.email = action.payload;
     },
 
     //only saga action
     loginUser: (state, action) => {},
-    refreshToken: () => {},
-    fetchFormations: () => {},
   },
 });
 
-export const {
-  userEmail,
-  loginUser,
-  fetchFormations,
-  loginSuccess,
-  logOutUser,
-  refreshToken,
-  loginFailed,
-} = userSlice.actions;
+export const { loginFailed, loginSuccess, logOutUser, loginUser } =
+  userSlice.actions;
 
 export const userSelector = (state) => state.userReducer.user;
 

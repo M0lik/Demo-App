@@ -64,10 +64,17 @@ export class BookingService {
   ): Promise<Booking[]> {
     const data = await this.bookingModel.aggregate([
       {
-        $match: {
-          start: { $gte: startDate },
-          end: { $lte: endDate },
-        },
+        $match: 
+          {$or:[
+            //overlap on begin
+            {$and: [{start: {$lte : startDate}},{end: {$gte : startDate}}  ]},
+            //overlap on end
+            {$and: [{start: {$lte : endDate}},{end: {$gte : endDate}}  ]},
+            //contain
+            {$and: [{start: {$gte : startDate}},{end: {$lte : endDate}}  ]},
+            //total overlap
+            {$and: [{start: {$lte : startDate}},{end: {$gte : endDate}}  ]},
+          ]},
       },
       {
         $lookup: {
@@ -92,13 +99,22 @@ export class BookingService {
     return data;
   }
 
-  async findAvailability(startDate: Date, endDate: Date): Promise<Booking[]> {
+  async findBookingsBetweenDate(startDate: Date, endDate: Date): Promise<Booking[]> {
     const searchParams = {};
     searchParams['start'] = { $gte: startDate };
     searchParams['end'] = { $lte: endDate };
 
     const tmp = await this.bookingModel
-      .find(searchParams)
+      .find({$or:[
+        //overlap on begin
+        {$and: [{start: {$lte : startDate}},{end: {$gte : startDate}}  ]},
+        //overlap on end
+        {$and: [{start: {$lte : endDate}},{end: {$gte : endDate}}  ]},
+        //contain
+        {$and: [{start: {$gte : startDate}},{end: {$lte : endDate}}  ]},
+        //total overlap
+        {$and: [{start: {$lte : startDate}},{end: {$gte : endDate}}  ]},
+      ]})
       .populate('slot')
       .populate('room')
       .populate('user')

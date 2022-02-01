@@ -1,23 +1,20 @@
 import * as React from "react";
+import { useHistory } from "react-router";
+
+import { useSelector, useDispatch } from "react-redux";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { userSelector } from "../redux/auth/userSlice";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { logOutUser } from "../redux/auth/userSlice";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { useHistory } from "react-router";
+
+import { userSelector } from "../redux/auth/userSlice";
+import { logOutUser } from "../redux/auth/userSlice";
 
 export default function NavBar({ title }) {
   const history = useHistory();
